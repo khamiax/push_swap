@@ -6,7 +6,7 @@
 /*   By: msaurel <msaurel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 15:35:18 by msaurel           #+#    #+#             */
-/*   Updated: 2025/11/24 16:34:13 by msaurel          ###   ########.fr       */
+/*   Updated: 2025/11/26 15:51:41 by msaurel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,21 @@
 int	rb(int *str_b)
 {
 	int	i;
-	int	k;
+	int	first;
+	int	size;
 
-	i = 0;
-	k = str_b[0];
-	while (str_b[i - 1])
+	size = str_b[0];
+	if (size <= 1)
+		return (0);
+	first = str_b[1];
+	i = 1;
+	while (i < size)
 	{
 		str_b[i] = str_b[i + 1];
 		i++;
 	}
-	str_b[i] = k;
-	ft_printf("rb");
+	str_b[size] = first;
+	ft_printf("ra\n");
 	return (1);
 }
 
@@ -44,26 +48,28 @@ int	rrb(int *str_b)
 		i--;
 	}
 	str_b[0] = k;
-	ft_printf("rrb");
+	ft_printf("rrb\n");
 	return (1);
 }
 
 int	rra(int *str_a)
 {
+	int	size;
 	int	i;
-	int	k;
+	int	last;
 
-	i = 0;
-	while (str_a[i])
-		i++;
-	k = str_a[i];
-	while (i != 0)
+	size = str_a[0];
+	if (size <= 1)
+		return (0);
+	last = str_a[size];
+	i = size;
+	while (i > 1)
 	{
 		str_a[i] = str_a[i - 1];
 		i--;
 	}
-	str_a[0] = k;
-	ft_printf("rra");
+	str_a[1] = last;
+	ft_printf("rra\n");
 	return (1);
 }
 
@@ -72,7 +78,7 @@ int	ft_strilen(int *str_a)
 	int	i;
 
 	i = 0;
-	while (str_a[i])
-		i++;
-	return (i);
+	if (!str_a)
+		return (0);
+	return (str_a[0]);
 }

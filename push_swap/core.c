@@ -6,100 +6,95 @@
 /*   By: msaurel <msaurel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 15:48:16 by msaurel           #+#    #+#             */
-/*   Updated: 2025/11/24 18:03:43 by msaurel          ###   ########.fr       */
+/*   Updated: 2025/11/26 16:02:08 by msaurel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	need_rename(int *str_a)
+int	int_max_min_verif(char *s)
 {
-	int	i;
-	int	min;
-	int	ind;
-	int	c;
+	long	nb;
 
-	c = 0;
-	min = 2147483647;
-	i = 0;
-	while (str_a[i])
-	{
-		if (str_a[i] <= min)
-		{
-			ind = i;
-			min = str_a[i];
-		}
-		i++;
-	}
-	i = 0;
-	while (i != ind)
-	{
-		c = ra(str_a);
-		i++;
-	}
-	return (c);
+	nb = ft_atoi(s);
+	if (nb > 2147483647 || nb < -2147483648)
+		return (1);
+	return (0);
 }
 
-int	need_rename_2(int *str_a)
-{
-	int	*str_b;
-	int	i;
-	int	c;
-	int	n;
-
-	c = 0;
-	n = 0;
-	i = ft_strilen(str_a);
-	str_b = malloc (sizeof(int) * i);
-	while (n != i)
-	{
-		c += need_rename(str_a);
-		c += pb(str_a, str_b);
-		n++;
-	}
-	while (n != 0)
-	{
-		c += pa(str_a, str_b);
-		n--;
-	}
-	return (c);
-}
-
-int	*inter_main(int *str_a, int argc, char **argv)
+int	args_verif(char **argv)
 {
 	int	i;
-	int	n;
+	int	j;
 
-	n = argc;
+	if (!argv || !argv[0])
+		return (0);
 	i = 0;
-	while (i != argc || n != 1)
+	while (argv[i])
 	{
-		if (!ft_isdigit(argv[n]))
-		{
-			ft_error();
+		j = 0;
+		if (argv[i][j] == '+' || argv[i][j] == '-')
+			j++;
+		if (!argv[i][j] || int_max_min_verif(argv[i]))
 			return (0);
+		while (argv[i][j])
+		{
+			if (!ft_isdigit(argv[i]))
+				return (0);
+			j++;
 		}
-		str_a[i++] = ft_atoi(argv[n--]);
+		i++;
 	}
-	return (str_a);
+	return (1);
+}
+
+int	verif_dup(int *lst_a)
+{
+	int	i;
+	int	j;
+	int	s;
+
+	s = lst_a[0];
+	i = 1;
+	while (i <= s)
+	{
+		j = i + 1;
+		while (j <= s)
+		{
+			if (lst_a[i] == lst_a[j])
+				return (1);
+			j++;
+		}
+		i++;
+	}
+	return (0);
 }
 
 int	main(int argc, char **argv)
 {
-	int	*str_a;
+	char	**ver_argv;
+	int		*lst_a;
 
-	if (argc == 1)
+	if (argc < 2)
 		return (0);
-	if (argc > 2)
+	ver_argv = verif_args(argc, argv);
+	if (!ver_argv)
+		return (ft_error());
+	if (!args_verif(ver_argv))
 	{
-		str_a = malloc (sizeof(int) * argc - 1);
-		str_a = inter_main(str_a, argc, argv);
+		free_split(ver_argv);
+		return (ft_error());
 	}
-	if (argc == 2)
+	lst_a = make_stack(ver_argv);
+	if (!lst_a)
 	{
-		argv = ft_split(argv[2], ' ');
-		str_a = inter_main(str_a, argc, argv);
+		free_split(ver_argv);
+		return (ft_error());
 	}
-	free(str_a);
+	if (verif_dup(lst_a))
+		return (free(lst_a), free_split(ver_argv), ft_error());
+	algo(lst_a);
+	free_split(ver_argv);
+	free(lst_a);
 	return (0);
 }
