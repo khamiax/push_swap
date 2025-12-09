@@ -1,8 +1,14 @@
 
 NAME = libft.a
 
-CC = cc
+# Prefer an explicit CC if provided; default to gcc.
+CC ?= gcc
 RM = rm -f
+
+# If the chosen CC is not available in PATH, fall back to gcc.
+ifeq ($(shell command -v $(CC) 2>/dev/null),)
+CC = gcc
+endif
 
 BONUS = ft_lstnew_bonus.c\
         ft_lstadd_front_bonus.c\

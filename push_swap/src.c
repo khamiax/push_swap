@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   src.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msaurel <msaurel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 15:18:45 by msaurel           #+#    #+#             */
-/*   Updated: 2025/11/26 16:10:38 by msaurel          ###   ########.fr       */
+/*   Updated: 2025/12/09 13:58:46 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
+#include "push_swap.h"
 
 int	sa(int *str_a)
 {
@@ -37,7 +37,6 @@ int	sb(int *str_b)
 	ft_printf("sb\n");
 	return (1);
 }
-
 
 int	pa(int *str_a, int *str_b)
 {

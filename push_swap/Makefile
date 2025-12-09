@@ -6,8 +6,9 @@ NAME = push_swap
 SOURCES = src_second.c \
           src_third.c \
           src.c \
-          core.c\
-		  core_bis.c
+          core.c \
+          core_bis.c \
+          algo.c
 
 OBJETS = $(SOURCES:.c=.o)
 
